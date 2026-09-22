@@ -1,0 +1,444 @@
+{
+  "name": "Lead + CRM",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "leads",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "27676db3-b3de-4f75-9e4f-e90862f3b643",
+      "name": "Webhook",
+      "webhookId": "fa3d70d9-a0ec-472c-9bb0-51e315007f09"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "6838d896-b5d5-4913-979f-982b92aabe84",
+              "name": "Nombre",
+              "value": "={{ $json.body.nombre }}",
+              "type": "string"
+            },
+            {
+              "id": "1b35cc47-6ac6-49c1-8ae0-a6afef54dfd2",
+              "name": "Apellidos",
+              "value": "={{ $json.body.apellidos }}",
+              "type": "string"
+            },
+            {
+              "id": "4518e18a-6e12-476e-b7ed-50d96b5ef14c",
+              "name": "Correo",
+              "value": "={{ $json.body.correo }}",
+              "type": "string"
+            },
+            {
+              "id": "a9b5b952-5ec5-49a1-8da6-386d2ff8fe71",
+              "name": "Servicio Solicitado",
+              "value": "={{ $json.body.servicio_solicitado }}",
+              "type": "string"
+            },
+            {
+              "id": "d7cb21ce-6c25-4619-9a35-d39e038e2d88",
+              "name": "Numero",
+              "value": "={{ $json.body.numero }}",
+              "type": "string"
+            },
+            {
+              "id": "c5cc2301-5c7f-471b-ae8e-45dccb1f7a6a",
+              "name": "Notas",
+              "value": "={{ $json.body.notas }}",
+              "type": "string"
+            },
+            {
+              "id": "427a74de-5896-4d2f-b0e7-43cebf153088",
+              "name": "id_lead",
+              "value": "={{'LEAD-' + $now.toFormat('yyyyMMdd-HHmmss')}}",
+              "type": "string"
+            },
+            {
+              "id": "adfa2423-209b-4493-a01e-b33e9e98357c",
+              "name": "fecha_registro",
+              "value": "={{$now.toFormat('yyyy-MM-dd HH:mm:ss')}}",
+              "type": "string"
+            },
+            {
+              "id": "f76e56d2-f7dc-4013-b52e-770724c6048b",
+              "name": "estado",
+              "value": "Nuevo",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        208,
+        0
+      ],
+      "id": "6fa7d338-e403-4ff7-a822-2cf25bf8fe57",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "4df9dd4b-28de-4fd9-9f40-96f4af890224",
+              "leftValue": "={{ $json.Nombre }}",
+              "rightValue": "={{ $json.Apellidos }}",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "1fbd17ef-d205-46d9-b3b7-4bbeddb30217",
+              "leftValue": "={{ $json.Apellidos }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "71383903-ac1c-420e-9bca-e42a1e6e5722",
+              "leftValue": "={{ $json.Correo }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "5e01a934-2e5d-4375-87a0-d929e1c7fc12",
+              "leftValue": "={{ $json['Servicio Solicitado'] }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "4f38d1ff-caae-4d28-89b1-f9d78ca93f3e",
+              "leftValue": "={{ $json.Numero }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "502993d5-06c6-4aac-9a0e-b0dbda7a3ca8",
+              "leftValue": "={{ $json.Notas }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        416,
+        0
+      ],
+      "id": "b2af9d3e-66e7-41e5-93fb-d4663041c37a",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "188o4NB_WfKlyD-CZjP19q0l6Jc7DcB54JfVW_jawD5U",
+          "mode": "list",
+          "cachedResultName": "Freelance Leads CRM",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/188o4NB_WfKlyD-CZjP19q0l6Jc7DcB54JfVW_jawD5U/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Hoja 1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/188o4NB_WfKlyD-CZjP19q0l6Jc7DcB54JfVW_jawD5U/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "nombre": "={{ $('Edit Fields').item.json.Nombre }}",
+            "apellidos": "={{ $('Edit Fields').item.json.Apellidos }}",
+            "correo": "={{ $('Edit Fields').item.json.Correo }}",
+            "servicio_solicitado": "={{ $('Edit Fields').item.json['Servicio Solicitado'] }}",
+            "numero": "={{ $('Edit Fields').item.json.Numero }}",
+            "notas": "={{ $('Edit Fields').item.json.Notas }}",
+            "id_lead": "={{$json.id_lead}}",
+            "fecha_registro": "={{$json.fecha_registro}}",
+            "estado": "={{$json.estado}}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "id_lead",
+              "displayName": "id_lead",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "fecha_registro",
+              "displayName": "fecha_registro",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "nombre",
+              "displayName": "nombre",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "apellidos",
+              "displayName": "apellidos",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "correo",
+              "displayName": "correo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "numero",
+              "displayName": "numero",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "servicio_solicitado",
+              "displayName": "servicio_solicitado",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "notas",
+              "displayName": "notas",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "estado",
+              "displayName": "estado",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        656,
+        -208
+      ],
+      "id": "4fcd530c-92ca-47e9-9a9f-ac03ce9ff67d",
+      "name": "Append row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "krnLeIglXdux6i3w",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "{\n  \"success\": true,\n  \"message\": \"Lead registrado correctamente\",\n  \"status\": \"new\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        1072,
+        -208
+      ],
+      "id": "d1d0927b-6ea0-4b81-9052-e1d3038afe41",
+      "name": "Respond to Webhook"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "{\n  \"success\": false,\n  \"message\": \"Faltan datos obligatorios\",\n  \"status\": \"rejected\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        640,
+        96
+      ],
+      "id": "9ae70fcd-043c-4466-beb4-1a533ca37139",
+      "name": "Respond to Webhook1"
+    },
+    {
+      "parameters": {
+        "chatId": "1572618136",
+        "text": "=🔔 NUEVO LEAD RECIBIDO\n\n👤 {{$json.nombre}} {{$json.apellidos}}\n📧 {{$json.correo}}\n📱 {{$json.numero}}\n\n🛠️ Servicio:\n{{$json.servicio_solicitado}}\n\n📝 Notas:\n{{$json.notas}}\n\n📊 Estado: Nuevo",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        864,
+        -208
+      ],
+      "id": "beb1f53e-15e1-4544-be44-fb1c8cd69d11",
+      "name": "Send a text message",
+      "webhookId": "591ab21c-6e6e-455a-abec-f5cdca48f217",
+      "credentials": {
+        "telegramApi": {
+          "id": "NzHWBT6oKQLJIZhe",
+          "name": "Telegram account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Respond to Webhook1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append row in sheet": {
+      "main": [
+        [
+          {
+            "node": "Send a text message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a text message": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "ea58f24d-3e38-4a99-92f2-2e0d77b109be",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "6be66d5d60d791960d8bdee615f4cde4c1a47618b99df009d80ab1ca4c14f636"
+  },
+  "id": "2vdp1h-kgS1FVlc7GlrcW",
+  "tags": []
+}
