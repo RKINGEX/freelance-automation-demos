@@ -165,21 +165,7 @@ This reduces repetitive administrative work, centralizes lead information, and h
 
 ## Evidence
 
-### Workflow
-
-![Workflow](./screenshots/01-workflow.png)
-
-### Validation
-
-![Validation](./screenshots/02-validation.png)
-
-### CRM
-
-![Google Sheets CRM](./screenshots/03-crm.png)
-
-### Telegram Notification
-
-![Telegram](./screenshots/04-telegram.png)
+You will be able to find it inside screenshots file
 
 ## Workflow File
 
