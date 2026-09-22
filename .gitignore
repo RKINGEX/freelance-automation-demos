@@ -1,0 +1,27 @@
+# Environment variables
+.env
+.env.*
+
+# Secrets
+secrets/
+credentials/
+
+# Node
+node_modules/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# VS Code
+.vscode/
+
+# Temporary files
+*.tmp
+*.log
